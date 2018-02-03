@@ -93,15 +93,14 @@ class TestMedia(unittest.TestCase):
         self.assertLessEqual(len(proj1.Data_from_iTunes("baby", 20).result_inst), 20)
         self.assertLessEqual(len(proj1.Data_from_iTunes("&@#!$", 20).result_inst), 20)
         self.assertLessEqual(len(proj1.Data_from_iTunes("helter skelter", 20).result_inst), 20)
-        sample = proj1.Data_from_iTunes("helter skelter", 20)
-    #-------------- end of part 2 ---------------
 
-
+    # -------------- end of part 3 ---------------
 
 # The following is a line to run all of the tests you include:
 
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)
+
 
 # verbosity 2 to see detail about the tests the code fails/passes/etc.

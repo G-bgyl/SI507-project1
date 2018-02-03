@@ -83,7 +83,7 @@ class Movie(Media):
         """return movie length in minutes (rounded to nearest minute)"""
         return self.movie_length
 
-#*************************** Begin Part 2 ***************************
+# *************************** Begin Part 2 ***************************
 
 # classify raw data into different groups and implement three class above.
 # input: list of dictionaries that represent the raw data get from website
@@ -120,9 +120,9 @@ def classify_data(media_data):
 
 
 
-#*************************** End of part 2 ***************************
+# *************************** End of part 2 ***************************
 
-#*************************** Begin Part 3 ****************************
+# *************************** Begin Part 3 ****************************
 
 class Data_from_iTunes ():
     def __init__(self,keyword,num):
@@ -148,9 +148,9 @@ class Data_from_iTunes ():
         self.result_inst = json.loads(result.text)['results']
         # print(self.result_inst)
 
-#*************************** End of part 3 ***************************
+# *************************** End of part 3 ***************************
 
-#*************************** Begin Part 4 ****************************
+# *************************** Begin Part 4 ****************************
 if __name__ == "__main__":
 
     # input:
