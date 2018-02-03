@@ -200,8 +200,9 @@ if __name__ == "__main__":
 
             # provide further link & info, or begin another search
             stop = False
+            keyword = input("Enter a number for more info, or another search term, or exit:")
+
             while not stop:
-                keyword = input("Enter a number for more info, or another search term, or exit:")
 
                 # finish the program
                 if keyword == 'exit':
@@ -211,9 +212,20 @@ if __name__ == "__main__":
 
                 # return a link with current search result
                 elif keyword.isdigit():
-                    url =result[int(keyword)-1].trackViewURL
-                    print('Launching',url,"\n in web browser...")
+                    right = False
+                    while not right:
+                        if len(result)<=int(keyword):
+                            keyword = input("Enter a number no bigger than {}:".format(len(result)))
+                            if len(result)>=int(keyword):
+                                right = True
+                        else:
+                            right = True
+
+                    url = result[int(keyword) - 1].trackViewURL
+                    print('Launching', url, "\n in web browser...")
                     webbrowser.open(url)
+
+                    keyword = input("Enter a number for more info, or another search term, or exit:")
 
                 # begin with another search
                 else:
