@@ -86,8 +86,8 @@ class TestMedia(unittest.TestCase):
         self.assertLessEqual(len(proj1.Data_from_iTunes("baby", 20).result_inst), 20)
         self.assertLessEqual(len(proj1.Data_from_iTunes("&@#!$", 20).result_inst), 20)
         self.assertLessEqual(len(proj1.Data_from_iTunes("helter skelter", 20).result_inst), 20)
-        # semple = proj1.Data_from_iTunes("helter skelter", 20)
-        # for each in sample
+        sample = proj1.Data_from_iTunes("helter skelter", 20)
+
 
 
 

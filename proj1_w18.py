@@ -121,7 +121,10 @@ class Data_from_iTunes ():
     def __init__(self,keyword,num):
         #print(most_common_word)
         self.result_inst={}
-        self.keyword= keyword
+        if keyword== ' ' or keyword =='':
+            self.keyword='blank'
+        else:
+            self.keyword= keyword
         self.num = num
         self.get_from_itunes()
 
@@ -140,53 +143,63 @@ class Data_from_iTunes ():
 if __name__ == "__main__":
 
     # input:
-    keyword = input("please input key word, or type exit for quit:")
-    print("\n")
-    if keyword=='correct':
-        print("Bye!")
-    elif not keyword:
-        keyword = 'blank'
-        print(keyword)
-    else:
-        correct=False
+    keyword = input("please input key word, or type \"exit\" for quit:")
 
-        num = input("please input number of results you want to display(no bigger than 100):")
-        try:
-            num = int(num)
-            correct = True
-        except:
-            num = input("Please type in valid number:")
+    exit=False
+    while not exit:
 
-        while not correct:
+        if keyword == 'exit':
+            exit = True
+            break
+
+        else:
+
+
+            correct = False
+
+            num = input("please input number of results you want to display(no bigger than 100):")
             try:
                 num = int(num)
                 correct = True
             except:
                 num = input("Please type in valid number:")
 
-        # process data
-        target_data = Data_from_iTunes(keyword, num).result_inst
-        print("\n")
-        dict = classify_data(target_data)
-        # print result
-        j = 0
-        result = []
-        for each in dict:
-            print("There are {} {}s.".format(len(dict[each]),each))
-            for i in range(len(dict[each])):
-                j += 1
-                result.append(dict[each][i])
-                print(j,dict[each][i])
-            print('\n')
-        exit = False
-        while not exit:
-            number = input("type in the number of work the interested in (only one number) for more info, or type \"exit\" to quit:")
-            if number == 'exit':
-                exit = True
-            else:
-                url =result[int(number)-1].trackViewURL
-                print('Launching',url,"\n in web browser...")
-                webbrowser.open(url)
+            while not correct:
+                try:
+                    num = int(num)
+                    correct = True
+                except:
+                    num = input("Please type in valid number:")
+
+            # process data
+            target_data = Data_from_iTunes(keyword, num).result_inst
+            print("\n")
+            dict = classify_data(target_data)
+            # print result
+            j = 0
+            result = []
+            for each in dict:
+                print("There are {} {}s.".format(len(dict[each]),each))
+                for i in range(len(dict[each])):
+                    j += 1
+                    result.append(dict[each][i])
+                    print(j,dict[each][i])
+                print('\n')
+            stop = False
+            while not stop:
+                keyword = input("Enter a number for more info, or another search term, or exit:")
+                if keyword == 'exit':
+                    stop= True
+                    exit = True
+                    break
+                elif keyword.isdigit():
+                    url =result[int(keyword)-1].trackViewURL
+                    print('Launching',url,"\n in web browser...")
+                    webbrowser.open(url)
+                else:
+                    stop = True
+
+    print("Bye!")
 
 
 
