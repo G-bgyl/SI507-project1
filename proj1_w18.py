@@ -2,6 +2,7 @@ import json
 import requests
 import webbrowser
 
+
 class Media:
 
     def __init__(self, title="No Title", author="No Author",release_year=1999,json =None):
@@ -12,7 +13,6 @@ class Media:
         self.json= json
         # update the data in class:
         self.media_data()
-
 
     def media_data(self):
         if self.json is not None:
@@ -80,12 +80,18 @@ class Movie(Media):
         string_of_media = super().__str__() + "[{}].".format(self.rating)
         return string_of_media
     def __len__(self):
-        """""""return movie length in minutes (rounded to nearest minute)"""
-
+        """return movie length in minutes (rounded to nearest minute)"""
         return self.movie_length
 
 #*************************** Begin Part 2 ***************************
+
+# classify raw data into different groups and implement three class above.
+# input: list of dictionaries that represent the raw data get from website
+# return: a dictionary with three elements, each of them contains a list of
+#         objects that belongs to the same class.
+
 def classify_data(media_data):
+
     result_dict ={"song":[],"movie":[],"other media":[]}
     i=0
     for each in media_data:
@@ -117,18 +123,21 @@ def classify_data(media_data):
 #*************************** End of part 2 ***************************
 
 #*************************** Begin Part 3 ****************************
+
 class Data_from_iTunes ():
     def __init__(self,keyword,num):
-        #print(most_common_word)
         self.result_inst={}
-        if keyword== ' ' or keyword =='':
-            self.keyword='blank'
+
+        # clean the input
+        if keyword == ' ' or keyword == '':
+            self.keyword = 'blank'
         else:
-            self.keyword= keyword
+            self.keyword = keyword
+
         self.num = num
         self.get_from_itunes()
 
-
+    # request data from webside
     def get_from_itunes(self):
         base_url = "https://itunes.apple.com/search"
         parameters= {}
@@ -139,24 +148,26 @@ class Data_from_iTunes ():
         self.result_inst = json.loads(result.text)['results']
         # print(self.result_inst)
 
+#*************************** End of part 3 ***************************
 
+#*************************** Begin Part 4 ****************************
 if __name__ == "__main__":
 
     # input:
     keyword = input("please input key word, or type \"exit\" for quit:")
 
-    exit=False
+    # begin the iterate
+    exit = False
     while not exit:
 
+        # check it need to exit
         if keyword == 'exit':
             exit = True
             break
 
         else:
-
-
+            # check if the input is valid
             correct = False
-
             num = input("please input number of results you want to display(no bigger than 100):")
             try:
                 num = int(num)
@@ -175,6 +186,7 @@ if __name__ == "__main__":
             target_data = Data_from_iTunes(keyword, num).result_inst
             print("\n")
             dict = classify_data(target_data)
+
             # print result
             j = 0
             result = []
@@ -185,25 +197,28 @@ if __name__ == "__main__":
                     result.append(dict[each][i])
                     print(j,dict[each][i])
                 print('\n')
+
+            # provide further link & info, or begin another search
             stop = False
             while not stop:
                 keyword = input("Enter a number for more info, or another search term, or exit:")
+
+                # finish the program
                 if keyword == 'exit':
                     stop= True
                     exit = True
                     break
+
+                # return a link with current search result
                 elif keyword.isdigit():
                     url =result[int(keyword)-1].trackViewURL
                     print('Launching',url,"\n in web browser...")
                     webbrowser.open(url)
+
+                # begin with another search
                 else:
                     stop = True
 
     print("Bye!")
 
-
-
-    # your control code for Part 4 (interactive search) should go here
-    # media = Media()
-    # song = Song(track_length=12000)
-    # print(song.__len__())
+# *************************** End of part 4 ***************************

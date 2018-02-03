@@ -14,13 +14,14 @@ class TestMedia(unittest.TestCase):
             except ValueError:
                 print("Skipping invalid line {0}".format(repr(line)))
     result_dict = proj1.classify_data(media_data)
-    # print(result_dict["movie"][0])
+
     def setUp(self):
 
         self.mo2 =self.result_dict["movie"][0]
         self.me3 = self.result_dict["other media"][0]
         self.s2 = self.result_dict["song"][0]
 
+    # -------------- for part 1 ---------------
     def testMedia(self):
         me1 = proj1.Media()
         me2 = proj1.Media("1999", "Prince", 1980)
@@ -57,6 +58,9 @@ class TestMedia(unittest.TestCase):
         self.assertEqual(mo1.__str__(), "Lady Bird by Greta Gerwig (2017)[R].")  #
         self.assertEqual(mo1.__len__(), 93)
 
+    # -------------- end of  part 1 ---------------
+
+    # -------------- for part 2 ---------------
     def testMedia2(self):
         self.assertEqual(self.me3.title, "No Title")
         self.assertEqual(self.me3.author, "Helen Fielding")#__str__
@@ -82,12 +86,15 @@ class TestMedia(unittest.TestCase):
         self.assertEqual(self.mo2.__str__(), "Jaws by Steven Spielberg (1975)[PG].")  #
         self.assertEqual(self.mo2.__len__(), 124)
 
+    # -------------- end of  part 2 ---------------
+
+    # -------------- for part 3 ---------------
     def testData_from_iTunes(self):
         self.assertLessEqual(len(proj1.Data_from_iTunes("baby", 20).result_inst), 20)
         self.assertLessEqual(len(proj1.Data_from_iTunes("&@#!$", 20).result_inst), 20)
         self.assertLessEqual(len(proj1.Data_from_iTunes("helter skelter", 20).result_inst), 20)
         sample = proj1.Data_from_iTunes("helter skelter", 20)
-
+    #-------------- end of part 2 ---------------
 
 
 
